@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Moreland's E-Portfolio Template</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    /* =====================================================================
+       THEME STYLES (Extracted from your Google Sites "Simple" Template)
+       ===================================================================== */
+    :root {
+      --primary-teal: #226e93;
+      --button-teal: #1e6c93;
+      --nav-dark: #212121;
+      --nav-accent: #49aad4;
+      --link-teal: #006580;
+      --link-hover: #007a93;
+      --text-dark: #212121;
+      --section-alt: #f2f2f2;
+    }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      color: var(--text-dark);
+      background-color: #ffffff;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6667;
+      font-size: 11pt;
+    }
+
+    /* Page Header Banner (.O13XJf & .LB7kq from template) */
+    .site-banner {
+      height: 340px;
+      padding-top: 60px;
+      padding-bottom: 60px;
+      background-color: var(--primary-teal);
+      background-image: url('https://ssl.gstatic.com/atari/images/simple-header-blended.png');
+      background-position: top left;
+      background-size: cover;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .site-banner::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: #212121;
+      opacity: 0.4;
+    }
+
+    .site-banner-title {
+      position: relative;
+      z-index: 1;
+      color: #ffffff;
+      font-family: 'Lato', sans-serif;
+      font-size: clamp(2.75rem, 6vw, 64pt);
+      font-weight: 300;
+      letter-spacing: 2px;
+      line-height: 1.05;
+      margin: 0;
+      padding: 0 24px;
+    }
+
+    /* Typography helpers matching template classes (.duRjpb, .JYVBee, .OmQG5e, .aw5Odc) */
+    .portfolio-page h2 {
+      color: var(--primary-teal);
+      font-size: 25pt;
+      font-weight: 300;
+      line-height: 1.25;
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+
+    .portfolio-page h3 {
+      color: var(--primary-teal);
+      font-size: 19pt;
+      font-weight: 400;
+      line-height: 1.4;
+      margin-top: 20px;
+      margin-bottom: 12px;
+    }
+
+    .portfolio-page h4 {
+      color: var(--text-dark);
+      font-size: 15pt;
+      font-weight: 400;
+      line-height: 1.25;
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+
+    .portfolio-page p {
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
+
+    .portfolio-page a:not(.btn-primary):not(.btn-outline) {
+      color: var(--link-teal);
+      text-decoration: underline;
+    }
+
+    .portfolio-page a:not(.btn-primary):not(.btn-outline):hover {
+      color: var(--link-hover);
+    }
+
+    /* Template Button Styles (.QmpIrf & .xkUom) */
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--button-teal);
+      color: #ffffff;
+      font-size: 11pt;
+      padding: 10px 24px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: opacity 0.15s ease;
+    }
+    .btn-primary:hover {
+      opacity: 0.92;
+    }
+
+    .btn-outline {
+      display: inline-block;
+      border: 1px solid var(--button-teal);
+      color: var(--button-teal);
+      font-size: 11pt;
+      padding: 9px 24px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background-color 0.15s ease;
+    }
+    .btn-outline:hover {
+      background-color: rgba(30, 108, 147, 0.1);
+    }
+
+    /* Navigation active & hover states (.PsKE7e, .lhZOrc, .M9vuGd) */
+    .nav-link {
+      color: #ffffff;
+      font-size: 12pt;
+      font-weight: 300;
+      padding: 8px 12px;
+      text-decoration: none;
+      transition: color 0.15s ease;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--nav-accent);
+    }
+    .nav-link.active {
+      font-weight: 400;
+    }
+
+    /* Hide inactive pages */
+    .portfolio-page {
+      display: none;
+    }
+    .portfolio-page.active {
+      display: block;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- =====================================================================
+       TOP NAVIGATION BAR (Extracted from template navigation tree)
+       ===================================================================== -->
+  <header class="bg-[#212121] text-white sticky top-0 z-40 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
+
+      <!-- Left: Hamburger Menu Button + Site Title -->
+      <div class="flex items-center gap-3 min-w-0">
+        <button id="mobileMenuBtn" type="button" aria-label="Open navigation menu"
+          class="lg:hidden p-2 rounded text-[#b2b2b2] hover:text-white hover:bg-white/10 transition">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2">
+            <path d="M3 7h18M3 12h18M3 17h18"/>
+          </svg>
+        </button>
+
+        <!-- Edit your site title text right here -->
+        <a href="#home" data-nav="home" class="text-white text-[15pt] font-light tracking-wide truncate hover:opacity-90">
+          Moreland's E-Portfolio Template
+        </a>
+      </div>
+
+      <!-- Right: Desktop Navigation Links -->
+      <nav aria-label="Top navigation" class="hidden lg:flex items-center gap-1">
+        <a href="#home" data-nav="home" class="nav-link active">Home</a>
+        <a href="#literacy" data-nav="literacy" class="nav-link">Literacy</a>
+
+        <!-- Dropdown 1: Module (ED 501 – ED 506) -->
+        <div class="relative group">
+          <button type="button" data-nav-group="module" class="nav-link flex items-center gap-1 cursor-pointer bg-transparent border-0">
+            <span>Module</span>
+            <svg class="w-4 h-4 opacity-80" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5H7z"/></svg>
+          </button>
+          <div class="absolute left-0 top-full pt-1 w-56 hidden group-hover:block z-50">
+            <div class="bg-[#212121] border border-white/15 rounded shadow-xl py-1.5 flex flex-col">
+              <a href="#module-1" data-nav="module-1" class="nav-link text-[11pt] px-4 py-2 hover:bg-white/5">Module 1 (ED 501)</a>
+              <a href="#module-2" data-nav="module-2" class="nav-link text-[11pt] px-4 py-2 hover:bg-white/5">Module 2 (ED 502)</a>
+              <a href="#module-3" data-nav="module-3" class="nav-link text-[11pt] px-4 py-2 hover:bg-white/5">Module 3 (ED 503)</a>
+              <a href="#module-4" data-nav="module-4" class="nav-link text-[11pt] px-4 py-2 hover:bg-white/5">Module 4 (ED 504)</a>
+              <a href="#module-5" data-nav="module-5" class="nav-link text-[11pt] px-4 py-2 hover:bg-white/5">Module 5 (ED 505)</a>
+              <a href="#module-6" data-nav="module-6" class="nav-link text-[11pt] px-4 py-2 hover:bg-white/5">Module 6 (ED 506)</a>
+            </div>
+          </div>
+        </div>
+
+        <a href="#clinical-practice" data-nav="clinical-practice" class="nav-link">Clincal Practice</a>
+        <a href="#intasc-standards" data-nav="intasc-standards" class="nav-link">InTASC Standards</a>
+
+        <!-- Dropdown 2: M.Ed. (Expandable menu + M.Ed. page at top of submenu) -->
+        <div class="relative group">
+          <button type="button" data-nav-group="med" class="nav-link flex items-center gap-1 cursor-pointer bg-transparent border-0">
+            <span>M.Ed.</span>
+            <svg class="w-4 h-4 opacity-80" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5H7z"/></svg>
+          </button>
+          <div class="absolute right-0 top-full pt-1 w-72 hidden group-hover:block z-50">
+            <div class="bg-[#212121] border border-white/15 rounded shadow-xl py-1.5 flex flex-col">
+              <a href="#med" data-nav="med" class="nav-link text-[11pt] px-4 py-2 border-b border-white/10 hover:bg-white/5">M.Ed.</a>
+              <a href="#med-edtech" data-nav="med-edtech" class="nav-link text-[11pt] px-4 py-2 hover:bg-white/5">M.Ed. in Educational Technology</a>
+              <a href="#med-ece" data-nav="med-ece" class="nav-link text-[11pt] px-4 py-2 hover:bg-white/5">M.Ed. in Early Childhood Education</a>
+              <a href="#med-sped" data-nav="med-sped" class="nav-link text-[11pt] px-4 py-2 hover:bg-white/5">M.Ed. in Special Education</a>
+              <a href="#med-multilingual" data-nav="med-multilingual" class="nav-link text-[11pt] px-4 py-2 hover:bg-white/5">M.Ed. in Multilingual Learners</a>
+              <a href="#med-globalization" data-nav="med-globalization" class="nav-link text-[11pt] px-4 py-2 hover:bg-white/5">M.Ed. in Globalization in Education</a>
+              <a href="#med-research" data-nav="med-research" class="nav-link text-[11pt] px-4 py-2 hover:bg-white/5">M.Ed. in Educational Research</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       MOBILE / HAMBURGER SIDEBAR NAVIGATION DRAWER (.JzO0Vc)
+       Includes collapsible "Module" and "M.Ed." groups
+       ===================================================================== -->
+  <div id="mobileDrawerBackdrop" class="fixed inset-0 bg-black/50 z-40 hidden"></div>
+  <aside id="mobileDrawer" aria-label="Mobile navigation"
+    class="fixed top-0 left-0 bottom-0 w-[265px] bg-[#212121] text-white z-50 transform -translate-x-full transition-transform duration-200 overflow-y-auto">
+    <div class="p-4 border-b border-white/10 flex items-center justify-between">
+      <span class="text-[14pt] font-light">Moreland's E-Portfolio</span>
+      <button id="closeMobileDrawerBtn" type="button" aria-label="Close menu" class="p-1 text-gray-400 hover:text-white">✕</button>
+    </div>
+
+    <nav class="p-3 flex flex-col space-y-1">
+      <a href="#home" data-nav="home" class="nav-link block rounded hover:bg-white/5">Home</a>
+      <a href="#literacy" data-nav="literacy" class="nav-link block rounded hover:bg-white/5">Literacy</a>
+
+      <!-- Collapsible Group 1: Module -->
+      <div>
+        <button id="mobileModuleToggleBtn" type="button" data-nav-group="module" aria-expanded="false"
+          class="nav-link w-full flex items-center justify-between rounded hover:bg-white/5 bg-transparent border-0 text-left">
+          <span>Module</span>
+          <svg id="mobileModuleCaret" class="w-4 h-4 text-gray-300 transition-transform duration-200" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7 10l5 5 5-5H7z"/>
+          </svg>
+        </button>
+        <div id="mobileModuleSubmenu" class="hidden pl-4 flex-col space-y-1 border-l border-white/15 ml-3 mt-1">
+          <a href="#module-1" data-nav="module-1" class="nav-link block text-[11pt] rounded hover:bg-white/5">Module 1 (ED 501)</a>
+          <a href="#module-2" data-nav="module-2" class="nav-link block text-[11pt] rounded hover:bg-white/5">Module 2 (ED 502)</a>
+          <a href="#module-3" data-nav="module-3" class="nav-link block text-[11pt] rounded hover:bg-white/5">Module 3 (ED 503)</a>
+          <a href="#module-4" data-nav="module-4" class="nav-link block text-[11pt] rounded hover:bg-white/5">Module 4 (ED 504)</a>
+          <a href="#module-5" data-nav="module-5" class="nav-link block text-[11pt] rounded hover:bg-white/5">Module 5 (ED 505)</a>
+          <a href="#module-6" data-nav="module-6" class="nav-link block text-[11pt] rounded hover:bg-white/5">Module 6 (ED 506)</a>
+        </div>
+      </div>
+
+      <a href="#clinical-practice" data-nav="clinical-practice" class="nav-link block rounded hover:bg-white/5">Clincal Practice</a>
+      <a href="#intasc-standards" data-nav="intasc-standards" class="nav-link block rounded hover:bg-white/5">InTASC Standards</a>
+
+      <!-- Collapsible Group 2: M.Ed. -->
+      <div>
+        <button id="mobileMedToggleBtn" type="button" data-nav-group="med" aria-expanded="false"
+          class="nav-link w-full flex items-center justify-between rounded hover:bg-white/5 bg-transparent border-0 text-left">
+          <span>M.Ed.</span>
+          <svg id="mobileMedCaret" class="w-4 h-4 text-gray-300 transition-transform duration-200" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7 10l5 5 5-5H7z"/>
+          </svg>
+        </button>
+        <div id="mobileMedSubmenu" class="hidden pl-4 flex-col space-y-1 border-l border-white/15 ml-3 mt-1">
+          <a href="#med" data-nav="med" class="nav-link block text-[11pt] rounded hover:bg-white/5">M.Ed.</a>
+          <a href="#med-edtech" data-nav="med-edtech" class="nav-link block text-[11pt] rounded hover:bg-white/5">M.Ed. in Educational Technology</a>
+          <a href="#med-ece" data-nav="med-ece" class="nav-link block text-[11pt] rounded hover:bg-white/5">M.Ed. in Early Childhood Education</a>
+          <a href="#med-sped" data-nav="med-sped" class="nav-link block text-[11pt] rounded hover:bg-white/5">M.Ed. in Special Education</a>
+          <a href="#med-multilingual" data-nav="med-multilingual" class="nav-link block text-[11pt] rounded hover:bg-white/5">M.Ed. in Multilingual Learners</a>
+          <a href="#med-globalization" data-nav="med-globalization" class="nav-link block text-[11pt] rounded hover:bg-white/5">M.Ed. in Globalization in Education</a>
+          <a href="#med-research" data-nav="med-research" class="nav-link block text-[11pt] rounded hover:bg-white/5">M.Ed. in Educational Research</a>
+        </div>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- =====================================================================
+       PAGE HEADER BANNER (Updates title automatically based on active page)
+       ===================================================================== -->
+  <section class="site-banner" aria-label="Page header section">
+    <h1 id="bannerHeading" class="site-banner-title">Your Name</h1>
+  </section>
+
+  <!-- =====================================================================
+       PAGE CONTENT SECTIONS
+       Edit the HTML inside each <section> below for each page of your site!
+       Change data-banner-title="..." to change the large banner heading.
+       ===================================================================== -->
+  <main class="flex-1 max-w-5xl w-full mx-auto px-6 py-12">
+
+    <!-- 1. HOME PAGE -->
+    <section id="page-home" data-banner-title="Your Name" class="portfolio-page active">
+      <p>About you... (personally and/or professionally)</p>
+    </section>
+
+    <!-- 2. LITERACY -->
+    <section id="page-literacy" data-banner-title="Literacy" class="portfolio-page">
+      <p>Add your Literacy content, artifacts, and reflections here.</p>
+    </section>
+
+    <!-- 3. MODULE 1 (ED 501) -->
+    <section id="page-module-1" data-banner-title="Module 1 (ED 501)" class="portfolio-page">
+      <p>Add your Module 1 (ED 501) assignments, artifacts, and reflections here.</p>
+    </section>
+
+    <!-- 4. MODULE 2 (ED 502) -->
+    <section id="page-module-2" data-banner-title="Module 2 (ED 502)" class="portfolio-page">
+      <p>Add your Module 2 (ED 502) assignments, artifacts, and reflections here.</p>
+    </section>
+
+    <!-- 5. MODULE 3 (ED 503) -->
+    <section id="page-module-3" data-banner-title="Module 3 (ED 503)" class="portfolio-page">
+      <p>Add your Module 3 (ED 503) assignments, artifacts, and reflections here.</p>
+    </section>
+
+    <!-- 6. MODULE 4 (ED 504) -->
+    <section id="page-module-4" data-banner-title="Module 4 (ED 504)" class="portfolio-page">
+      <p>Add your Module 4 (ED 504) assignments, artifacts, and reflections here.</p>
+    </section>
+
+    <!-- 7. MODULE 5 (ED 505) -->
+    <section id="page-module-5" data-banner-title="Module 5 (ED 505)" class="portfolio-page">
+      <p>Add your Module 5 (ED 505) assignments, artifacts, and reflections here.</p>
+    </section>
+
+    <!-- 8. MODULE 6 (ED 506) -->
+    <section id="page-module-6" data-banner-title="Module 6 (ED 506)" class="portfolio-page">
+      <p>Add your Module 6 (ED 506) assignments, artifacts, and reflections here.</p>
+    </section>
+
+    <!-- 9. CLINICAL PRACTICE -->
+    <section id="page-clinical-practice" data-banner-title="Clincal Practice" class="portfolio-page">
+      <p>Add your Clinical Practice observations, evaluations, and reflections here.</p>
+    </section>
+
+    <!-- 10. InTASC STANDARDS -->
+    <section id="page-intasc-standards" data-banner-title="InTASC Standards" class="portfolio-page">
+      <p>Add your InTASC Standards evidence and alignment reflections here.</p>
+    </section>
+
+    <!-- 11. M.Ed. OVERVIEW -->
+    <section id="page-med" data-banner-title="M.Ed." class="portfolio-page">
+      <p>Add your M.Ed. overview content here.</p>
+    </section>
+
+    <!-- 12. M.Ed. IN EDUCATIONAL TECHNOLOGY -->
+    <section id="page-med-edtech" data-banner-title="M.Ed. in Educational Technology" class="portfolio-page">
+      <p>Add your M.Ed. in Educational Technology coursework and artifacts here.</p>
+    </section>
+
+    <!-- 13. M.Ed. IN EARLY CHILDHOOD EDUCATION -->
+    <section id="page-med-ece" data-banner-title="M.Ed. in Early Childhood Education" class="portfolio-page">
+      <p>Add your M.Ed. in Early Childhood Education coursework and artifacts here.</p>
+    </section>
+
+    <!-- 14. M.Ed. IN SPECIAL EDUCATION -->
+    <section id="page-med-sped" data-banner-title="M.Ed. in Special Education" class="portfolio-page">
+      <p>Add your M.Ed. in Special Education coursework and artifacts here.</p>
+    </section>
+
+    <!-- 15. M.Ed. IN MULTILINGUAL LEARNERS -->
+    <section id="page-med-multilingual" data-banner-title="M.Ed. in Multilingual Learners" class="portfolio-page">
+      <p>Add your M.Ed. in Multilingual Learners coursework and artifacts here.</p>
+    </section>
+
+    <!-- 16. M.Ed. IN GLOBALIZATION IN EDUCATION -->
+    <section id="page-med-globalization" data-banner-title="M.Ed. in Globalization in Education" class="portfolio-page">
+      <p>Add your M.Ed. in Globalization in Education coursework and artifacts here.</p>
+    </section>
+
+    <!-- 17. M.Ed. IN EDUCATIONAL RESEARCH -->
+    <section id="page-med-research" data-banner-title="M.Ed. in Educational Research" class="portfolio-page">
+      <p>Add your M.Ed. in Educational Research coursework and artifacts here.</p>
+    </section>
+
+  </main>
+
+  <!-- =====================================================================
+       PAGE ROUTER & COLLAPSIBLE HAMBURGER MENU SCRIPT
+       ===================================================================== -->
+  <script>
+    function showPage(slug) {
+      const cleanSlug = (slug || "home").replace(/^#\/?/, "") || "home";
+      const targetSection = document.getElementById("page-" + cleanSlug) || document.getElementById("page-home");
+      const activeSlug = targetSection.id.replace(/^page-/, "");
+
+      // 1. Show active page section
+      document.querySelectorAll(".portfolio-page").forEach(sec => {
+        sec.classList.toggle("active", sec === targetSection);
+      });
+
+      // 2. Update Banner Heading from data-banner-title
+      const bannerHeading = document.getElementById("bannerHeading");
+      if (bannerHeading) {
+        bannerHeading.textContent = targetSection.getAttribute("data-banner-title") || "Your Name";
+      }
+
+      // 3. Highlight active navigation links & parent dropdowns
+      document.querySelectorAll("[data-nav]").forEach(link => {
+        link.classList.toggle("active", link.getAttribute("data-nav") === activeSlug);
+      });
+
+      document.querySelectorAll('[data-nav-group="module"]').forEach(el => {
+        el.classList.toggle("active", activeSlug.startsWith("module-"));
+      });
+
+      document.querySelectorAll('[data-nav-group="med"]').forEach(el => {
+        el.classList.toggle("active", activeSlug === "med" || activeSlug.startsWith("med-"));
+      });
+
+      // 4. Update URL hash safely
+      try {
+        if (window.location.hash !== "#" + activeSlug) {
+          history.replaceState(null, "", "#" + activeSlug);
+        }
+      } catch (e) {
+        // Ignore in sandboxed preview environments where history API is restricted
+      }
+
+      closeMobileMenu();
+      window.scrollTo(0, 0);
+    }
+
+    function toggleSubmenu(submenuId, caretId, btnEl) {
+      const submenu = document.getElementById(submenuId);
+      const caret = document.getElementById(caretId);
+      if (!submenu) return;
+      const isHidden = submenu.classList.contains("hidden");
+      submenu.classList.toggle("hidden", !isHidden);
+      submenu.classList.toggle("flex", isHidden);
+      if (caret) {
+        caret.classList.toggle("rotate-180", isHidden);
+      }
+      if (btnEl) {
+        btnEl.setAttribute("aria-expanded", isHidden ? "true" : "false");
+      }
+    }
+
+    function openMobileMenu() {
+      document.getElementById("mobileDrawerBackdrop").classList.remove("hidden");
+      document.getElementById("mobileDrawer").classList.remove("-translate-x-full");
+    }
+
+    function closeMobileMenu() {
+      document.getElementById("mobileDrawerBackdrop").classList.add("hidden");
+      document.getElementById("mobileDrawer").classList.add("-translate-x-full");
+    }
+
+    window.addEventListener("hashchange", () => {
+      showPage(window.location.hash);
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+      // Attach direct click handlers to all [data-nav] links so navigation works
+      // reliably both in sandboxed preview iframes and on GitHub Pages
+      document.querySelectorAll("[data-nav]").forEach(link => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          const targetSlug = link.getAttribute("data-nav");
+          showPage(targetSlug);
+        });
+      });
+
+      // Collapsible "Module" and "M.Ed." toggles in the hamburger menu
+      const moduleToggleBtn = document.getElementById("mobileModuleToggleBtn");
+      if (moduleToggleBtn) {
+        moduleToggleBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleSubmenu("mobileModuleSubmenu", "mobileModuleCaret", moduleToggleBtn);
+        });
+      }
+
+      const medToggleBtn = document.getElementById("mobileMedToggleBtn");
+      if (medToggleBtn) {
+        medToggleBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleSubmenu("mobileMedSubmenu", "mobileMedCaret", medToggleBtn);
+        });
+      }
+
+      // Open/close mobile drawer
+      document.getElementById("mobileMenuBtn").addEventListener("click", openMobileMenu);
+      document.getElementById("closeMobileDrawerBtn").addEventListener("click", closeMobileMenu);
+      document.getElementById("mobileDrawerBackdrop").addEventListener("click", closeMobileMenu);
+
+      // Load initial page
+      showPage(window.location.hash || "#home");
+    });
+  </script>
+</body>
+</html>
