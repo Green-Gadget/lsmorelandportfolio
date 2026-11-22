@@ -5,7 +5,7 @@
    ========================================================================= */
 
 const SITE_CONFIG = {
-  siteTitle: "Moreland's E-Portfolio Template",
+  siteTitle: "Ren's E-Portfolio",
   navItems: [
     { id: "home", label: "Home", path: "index.html" },
     { id: "literacy", label: "Literacy", path: "literacy.html" },
